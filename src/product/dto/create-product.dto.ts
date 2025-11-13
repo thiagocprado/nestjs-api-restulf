@@ -11,7 +11,7 @@ import {
   Min,
   ValidateNested,
 } from 'class-validator';
-import { ProductEntity } from '../entities/product.entity';
+import { ProductEntity } from '../entity/product.entity';
 
 export class ProductFeatureDto {
   id: string;

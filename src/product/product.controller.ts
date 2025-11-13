@@ -10,7 +10,7 @@ import {
 
 import { UpdateProductDto } from './dto/update-product.dto';
 import { CreateProductDto } from './dto/create-product.dto';
-import { ProductEntity } from './entities/product.entity';
+import { ProductEntity } from './entity/product.entity';
 import { ProductService } from './product.service';
 
 @Controller('products') // Define o prefixo de rota /products

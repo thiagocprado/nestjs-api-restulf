@@ -26,7 +26,7 @@ export class ProductController {
     product.name = productData.name;
     product.userId = productData.userId;
     product.price = productData.price;
-    product.quantity = productData.quantity;
+    product.availableQuantity = productData.availableQuantity;
     product.description = productData.description;
     product.category = productData.category;
     product.features = productData.features;

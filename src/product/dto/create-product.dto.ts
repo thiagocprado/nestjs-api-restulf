@@ -4,6 +4,7 @@ import {
   IsArray,
   IsNotEmpty,
   IsNumber,
+  IsOptional,
   IsString,
   IsUrl,
   IsUUID,
@@ -14,6 +15,7 @@ import {
 import { ProductEntity } from '../entity/product.entity';
 
 export class ProductFeatureDto {
+  @IsOptional()
   id: string;
 
   @IsString()
@@ -24,10 +26,12 @@ export class ProductFeatureDto {
   @IsNotEmpty({ message: 'Feature description must not be empty' })
   description: string;
 
+  @IsOptional()
   product: ProductEntity;
 }
 
 export class ProductImageDto {
+  @IsOptional()
   id: string;
 
   @IsUrl(undefined, { message: 'Image URL is invalid' })
@@ -37,6 +41,7 @@ export class ProductImageDto {
   @IsNotEmpty({ message: 'Image description must not be empty' })
   description: string;
 
+  @IsOptional()
   product: ProductEntity;
 }
 
@@ -53,8 +58,8 @@ export class CreateProductDto {
   price: number;
 
   @IsNumber()
-  @Min(0, { message: 'Invalid minimum quantity' })
-  quantity: number;
+  @Min(1, { message: 'Invalid minimum quantity' })
+  availableQuantity: number;
 
   @IsString()
   @IsNotEmpty({ message: 'Product description must not be empty' })

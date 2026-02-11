@@ -9,6 +9,7 @@ import {
 } from 'typeorm';
 import { ProductFeatureEntity } from './product-feature.entity';
 import { ProductImageEntity } from './product-image.entity';
+import { OrderItemEntity } from '../../order/entity/order-item.entity';
 
 @Entity({ name: 'products' })
 export class ProductEntity {
@@ -20,8 +21,8 @@ export class ProductEntity {
   name: string;
   @Column({ name: 'price', nullable: false })
   price: number;
-  @Column({ name: 'quantity', nullable: false })
-  quantity: number;
+  @Column({ name: 'available_quantity', nullable: false })
+  availableQuantity: number;
   @Column({ name: 'description', length: 255, nullable: false })
   description: string;
   @Column({ name: 'category', length: 100, nullable: false })
@@ -39,6 +40,9 @@ export class ProductEntity {
     eager: true,
   })
   images: ProductImageEntity[];
+
+  @OneToMany(() => OrderItemEntity, (orderItem) => orderItem.product)
+  orderItems: OrderItemEntity[];
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;

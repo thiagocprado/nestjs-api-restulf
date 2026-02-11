@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS public.products
   user_id varchar(100) COLLATE pg_catalog."default" NOT NULL,
   name varchar(100) COLLATE pg_catalog."default" NOT NULL,
   price integer NOT NULL,
-  quantity integer NOT NULL,
+  available_quantity integer NOT NULL,
   description varchar(255) COLLATE pg_catalog."default" NOT NULL,
   category varchar(100) COLLATE pg_catalog."default" NOT NULL,
   created_at timestamp without time zone NOT NULL DEFAULT now(),

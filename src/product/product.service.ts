@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ProductEntity } from './entity/product.entity';
 import { Repository } from 'typeorm';
@@ -24,8 +24,15 @@ export class ProductService {
 
   // Atualiza um produto existente pelo ID
   async updateProduct(id: string, product: Partial<UpdateProductDto>) {
-    await this.productRepository.update(id, product);
-    return await this.productRepository.findOneBy({ id });
+    const entity = await this.productRepository.findOneBy({ id });
+
+    if (!entity) {
+      throw new NotFoundException(`Produto com ID ${id} não encontrado`);
+    }
+
+    Object.assign(entity, product);
+
+    await this.productRepository.save(entity);
   }
 
   // Remove um produto pelo ID (soft delete se configurado)

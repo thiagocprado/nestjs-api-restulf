@@ -9,13 +9,10 @@ class ProductImageListDto {
 }
 
 export class ListProductDto {
-  id: string;
-  userId: string;
-  name: string;
-  price: number;
-  quantity: number;
-  description: string;
-  category: string;
-  features: ProductFeatureListDto[];
-  images: ProductImageListDto[];
+  constructor(
+    readonly id: string,
+    readonly name: string,
+    readonly features: ProductFeatureListDto[],
+    readonly images: ProductImageListDto[],
+  ) {}
 }

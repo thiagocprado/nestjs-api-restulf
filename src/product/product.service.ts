@@ -3,44 +3,60 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { ProductEntity } from './entity/product.entity';
 import { Repository } from 'typeorm';
 import { UpdateProductDto } from './dto/update-product.dto';
+import { CreateProductDto } from './dto/create-product.dto';
+import { ListProductDto } from './dto/list-product.dto';
 
-@Injectable() // Torna a classe um provider injetável
+@Injectable()
 export class ProductService {
   constructor(
-    // Injeta o repositório do TypeORM para ProductEntity
     @InjectRepository(ProductEntity)
     private readonly productRepository: Repository<ProductEntity>,
   ) {}
 
-  // Cria um novo produto no banco de dados
-  async createProduct(product: ProductEntity) {
-    return await this.productRepository.save(product);
+  async createProduct(productData: CreateProductDto) {
+    const productEntity = new ProductEntity();
+
+    Object.assign(productEntity, productData as ProductEntity);
+
+    return this.productRepository.save(productEntity);
   }
 
-  // Retorna todos os produtos cadastrados
   async getProducts() {
-    return await this.productRepository.find();
+    const savedProducts = await this.productRepository.find({
+      relations: {
+        images: true,
+        features: true,
+      },
+    });
+    const productsList = savedProducts.map(
+      (product) =>
+        new ListProductDto(
+          product.id,
+          product.name,
+          product.features,
+          product.images,
+        ),
+    );
+    return productsList;
   }
 
-  // Atualiza um produto existente pelo ID
-  async updateProduct(id: string, product: Partial<UpdateProductDto>) {
+  async updateProduct(id: string, newData: UpdateProductDto) {
     const entity = await this.productRepository.findOneBy({ id });
 
-    if (!entity) {
-      throw new NotFoundException(`Produto com ID ${id} não encontrado`);
+    if (entity === null) {
+      throw new NotFoundException('Product not found.');
     }
 
-    Object.assign(entity, product);
+    Object.assign(entity, newData as ProductEntity);
 
-    await this.productRepository.save(entity);
+    return this.productRepository.save(entity);
   }
 
-  // Remove um produto pelo ID (soft delete se configurado)
   async deleteProduct(id: string) {
-    const product = await this.productRepository.findOneBy({ id });
-    if (product) {
-      await this.productRepository.delete(id);
+    const result = await this.productRepository.delete(id);
+
+    if (!result.affected) {
+      throw new NotFoundException('Product not found.');
     }
-    return product;
   }
 }

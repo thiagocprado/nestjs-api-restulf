@@ -9,7 +9,7 @@ import {
   OneToMany,
 } from 'typeorm';
 import { OrderStatus } from '../enum/order-status.enum';
-import { UserEntity } from '../../user/user.entity';
+import { UserEntity } from '../../user/entity/user.entity';
 import { OrderItemEntity } from './order-item.entity';
 
 @Entity({ name: 'orders' })

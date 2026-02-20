@@ -1,3 +1,16 @@
+/**
+ * ==========================================================================
+ * MIGRATION — Mapeamento User ↔ Order (Relacionamento 1:N)
+ * ==========================================================================
+ *
+ * Cria a tabela "orders" e estabelece o relacionamento entre User e Order.
+ * Um usuário pode ter vários pedidos (1:N — OneToMany/ManyToOne).
+ *
+ * implements MigrationInterface → contrato que exige up() e down().
+ * up()   → cria a tabela orders com FK para users
+ * down() → remove a FK e dropa a tabela orders
+ * ==========================================================================
+ */
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
 export class MappingUserOrder1770204258008 implements MigrationInterface {

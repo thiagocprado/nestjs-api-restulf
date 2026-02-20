@@ -1,3 +1,25 @@
+/**
+ * ==========================================================================
+ * MIGRATION — Alteração de Estrutura de Tabelas (create_tables)
+ * ==========================================================================
+ *
+ * O que é uma Migration?
+ *   É um arquivo que versiona alterações no schema do banco de dados.
+ *   Funciona como um "git" para o banco: cada migration é um "commit"
+ *   que pode ser aplicado (up) ou revertido (down).
+ *
+ * POO — Interface/Contrato:
+ *   Implementa MigrationInterface, que exige os métodos up() e down().
+ *   - up():   aplica as alterações (cria tabelas, colunas, constraints...)
+ *   - down(): reverte as alterações (desfaz o que up() fez)
+ *
+ * Esta migration ajusta as tabelas product_features, product_images e products:
+ * renomeia colunas, altera tamanhos e recria foreign keys.
+ *
+ * As queries SQL são geradas automaticamente pelo CLI do TypeORM
+ * ao comparar as entidades TypeScript com o schema atual do banco.
+ * ==========================================================================
+ */
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
 export class CreateTables1763464414042 implements MigrationInterface {

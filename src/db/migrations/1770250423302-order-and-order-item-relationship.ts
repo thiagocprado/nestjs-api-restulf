@@ -1,3 +1,15 @@
+/**
+ * ==========================================================================
+ * MIGRATION — Relacionamento Order ↔ OrderItem
+ * ==========================================================================
+ *
+ * Cria a tabela "orders_items" (itens de cada pedido) e estabelece
+ * o relacionamento N:1 entre OrderItem e Order.
+ *
+ * A tabela orders_items funciona como tabela ASSOCIATIVA:
+ * cada registro liga um pedido a um produto, com quantidade e preço.
+ * ==========================================================================
+ */
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
 export class OrderAndOrderItemRelationship1770250423302

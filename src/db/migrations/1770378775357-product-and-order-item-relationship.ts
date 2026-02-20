@@ -1,3 +1,16 @@
+/**
+ * ==========================================================================
+ * MIGRATION — Relacionamento Product ↔ OrderItem + Recriação de Tabelas
+ * ==========================================================================
+ *
+ * Esta é a migration mais completa: recria as tabelas products,
+ * product_features, product_images e orders_items com todas as
+ * constraints e foreign keys.
+ *
+ * Estabelece o relacionamento entre Product e OrderItem (N:1),
+ * permitindo saber quais produtos estão em cada item de pedido.
+ * ==========================================================================
+ */
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
 export class ProductAndOrderItemRelationship1770378775357
